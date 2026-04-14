@@ -1,4 +1,3 @@
-/* Alapbeállítások */
 * {
     margin: 0;
     padding: 0;
@@ -14,7 +13,6 @@ body {
     min-height: 100vh;
 }
 
-/* Header és Navigáció */
 header {
     background-color: #15151e;
     padding: 15px 20px;
@@ -62,7 +60,7 @@ header a:hover {
     transform: skewX(-15deg);
 }
 
-.versenyek{
+.versenyek {
     max-width: 1000px;
     margin: 20px auto;
     width: 90%;
@@ -71,10 +69,10 @@ header a:hover {
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     float: left;
-
 }
+
 .tablazat {
-max-width: 1000px;
+    max-width: 1000px;
     margin: 20px auto;
     width: 90%;
     background: white;
@@ -84,7 +82,6 @@ max-width: 1000px;
     float: right;
 }
 
-/* Form stílusok */
 form div {
     margin-bottom: 15px;
 }
@@ -114,7 +111,6 @@ input[type="date"]:focus {
     border-color: #e10600;
 }
 
-/* Submit gomb */
 input[type="submit"] {
     background-color: #15151e;
     color: white;
@@ -131,7 +127,6 @@ input[type="submit"]:hover {
     background-color: #e10600;
 }
 
-/* Táblázat stílusok */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -156,7 +151,6 @@ tr:hover {
     background-color: #f9f9f9;
 }
 
-/* Validációs hiba üzenet */
 .validation-error {
     color: #e10600;
     margin-left: 10px;
@@ -168,7 +162,6 @@ tr:hover {
     display: none;
 }
 
-/* Footer */
 footer {
     margin-top: auto;
     padding: 20px;

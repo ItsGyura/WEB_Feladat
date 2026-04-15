@@ -1,33 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="spa.css">
     <title>WEB Beadandó</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Web programozás-1 Előadás Házi feladat</h1>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
 
-        <nav>
-            <a href="index.html">Főoldal</a>
-            <a href="javascript.html">CRUD</a>
-            <a href="react.html">REACT</a>
-            <a href="spa.html">SPA</a>
-            <a href="fetchapi.html">Fetch API</a>
-            <a href="axios.html">Axios</a>
-            <a href="oojs.html">OOJS</a>
-        </nav>
-    </header>
+        function App() {
+            const [count, setCount] = useState(0);
+            const [helyezes, setHelyezes] = useState(1);
+            const [isSprint, setIsSprint] = useState(false);
 
-    <main>
-        <div class="Kezdo"></div>
-        <div class="Leírás">
-            <table></table>
-        </div>
-    </main>
+            const getF1Points = () => {
+                const h = parseInt(helyezes);
+                if (isSprint) {
+                    const points = [8, 7, 6, 5, 4, 3, 2, 1];
+                    return h <= 8 ? points[h - 1] : 0;
+                } else {
+                    const points = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
+                    return h <= 10 ? points[h - 1] : 0;
+                }
+            };
 
-    <footer>Gyurászik György Marcell - ZX4R0A | Patkós Máté - CS9R44</footer>
+            return (
+                <React.Fragment>
+                    <header>
+                        <h1>Web programozás-1 Előadás Házi feladat</h1>
+                        <nav>
+                            <a href="index.html">Főoldal</a>
+                            <a href="javascript.html">CRUD</a>
+                            <a href="react.html">REACT</a>
+                            <a href="spa.html">SPA</a>
+                            <a href="fetchapi.html">Fetch API</a>
+                            <a href="axios.html">Axios</a>
+                            <a href="oojs.html">OOJS</a>
+                        </nav>
+                    </header>
+
+                    <main className="szamlalo-helyszin">
+                        <div className="tablazat">
+                            <h3>Egyszerű számláló</h3>
+                            <div className="szam-kijelzo">{count}</div>
+                            <div>
+                                <button className="counter-btn" onClick={() => setCount(count - 1)}>-</button>
+                                <button className="counter-btn" onClick={() => setCount(0)}>TÖRLÉS</button>
+                                <button className="counter-btn" onClick={() => setCount(count + 1)}>+</button>
+                            </div>
+                        </div>
+
+                        <div className="ptablazat">
+                            <h3>F1 Pontkalkulátor</h3>
+                            <div className="szam-kijelzo">{getF1Points()}</div>
+                            <div>
+                                <button 
+                                    className={`counter-btn ${!isSprint ? 'active' : ''}`} 
+                                    onClick={() => setIsSprint(false)}
+                                >FUTAM</button>
+                                <button 
+                                    className={`counter-btn ${isSprint ? 'active' : ''}`} 
+                                    onClick={() => setIsSprint(true)}
+                                >SPRINT</button>
+                            </div>
+                            <div style={{marginTop: '15px'}}>
+                                <label >Helyezés: </label>
+                                <input 
+                                    type="number" 
+                                    min="1" 
+                                    max="22" 
+                                    value={helyezes} 
+                                    onChange={(e) => setHelyezes(e.target.value)}
+                                />
+                            </div>
+                            {isSprint && helyezes > 8 && <p class="np">Nincs pontszerzés</p>}
+                            {!isSprint && helyezes > 10 && <p class="np">Nincs pontszerzés</p>}
+                        </div>
+                    </main>
+
+                    <footer>
+                        Gyurászik György Marcell - ZX4R0A | Patkós Máté - CS9R44
+                    </footer>
+                </React.Fragment>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>

@@ -1,0 +1,169 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: #f3f3f3;
+    color: #15151e;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #15151e;
+    padding: 15px 20px;
+    text-align: center;
+    border-bottom: 8px solid #e10600;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+header h1 {
+    color: #ffffff;
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+header a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: 10px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+header a:hover {
+    background-color: #e10600;
+    border-color: #e10600;
+    transform: skewX(-15deg);
+}
+
+main.szamlalo-helyszin {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    flex: 1;
+    gap: 20px;
+    padding: 40px;
+    flex-wrap: wrap;
+}
+
+.tablazat, .ptablazat {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    flex: 1;
+    max-width: 450px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 350px;
+}
+
+.szam-kijelzo {
+    font-size: 4rem;
+    font-weight: 900;
+    font-style: italic;
+    color: #15151e;
+    margin: 15px 0;
+    text-shadow: 3px 3px 0px #e10600;
+}
+
+.counter-btn {
+    background-color: #15151e;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.counter-btn:hover {
+    background-color: #e10600;
+    transform: skewX(-15deg);
+}
+
+.btn-active {
+    background-color: #e10600 !important;
+}
+
+input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    margin-top: 10px;
+    border: 2px solid #15151e;
+    font-weight: bold;
+    text-align: center;
+}
+
+.nincs-pont {
+    color: #e10600;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+footer {
+    margin-top: auto;
+    padding: 20px;
+    background-color: #15151e;
+    color: #ffffff;
+    text-align: center;
+    font-size: 0.85rem;
+    border-top: 4px solid #e10600;
+}
+label
+{
+    color: #15151e;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    margin-bottom: 20px;
+    margin: 5px;
+}
+.np
+{
+    color: #e10600;
+    font-size: 1rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}

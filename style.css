@@ -1,3 +1,14 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body, #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,9 +19,6 @@ body {
     font-family: 'Segoe UI', Roboto, sans-serif;
     background-color: #f3f3f3;
     color: #15151e;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
 }
 
 header {
@@ -61,6 +69,10 @@ header a:hover {
     transform: skewX(-15deg);
 }
 
+main {
+    flex: 1;
+}
+
 .versenyek {
     max-width: 1000px;
     margin: 20px auto;
@@ -69,7 +81,6 @@ header a:hover {
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    float: left;
 }
 
 .tablazat {
@@ -80,7 +91,6 @@ header a:hover {
     padding: 15px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    float: right;
 }
 
 form div {
@@ -137,6 +147,7 @@ table {
 table#lista thead tr th:first-child {
     border-top-left-radius: 8px;
 }
+
 table#lista thead tr th:last-child {
     border-top-right-radius: 8px;
 }
@@ -182,17 +193,19 @@ footer {
     border-top: 4px solid #e10600;
     letter-spacing: 1px;
 }
-td a {
+
+td a#modosit {
     margin-right: 10px;
 }
- a#modosit,a#torol {
+
+a#modosit, a#torol {
     color: #15151e;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
-    cursor:pointer;
+    cursor: pointer;
 }
 
- a#modosit:hover,a#torol:hover {
+a#modosit:hover, a#torol:hover {
     color: #e10600;
 }

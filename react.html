@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
     <title>WEB Beadandó</title>
 </head>
 <body>
@@ -20,13 +25,67 @@
             <a href="oojs.html">OOJS</a>
         </nav>
     </header>
+<main id="root"></main>
+<script type="text/babel">
+    const { useState, useEffect } = React;
+    const API_URL = 'api.php';
 
-    <main>
-        <div class="Kezdo"></div>
-        <div class="Leírás">
-            <table></table>
-        </div>
-    </main>
+    function App() {
+        const [gp, setGp] = useState([]);
+        const [nev, setNev] = useState("");
+        const [datum, setDatum] = useState("");
+        const [helyszin, setHelyszin] = useState("");
+
+        const betolt = () => {
+            fetch(API_URL)
+                .then(res => res.json())
+                .then(data => { if (Array.isArray(data)) setGp(data); });
+        };
+
+        useEffect(() => { betolt(); }, []);
+
+        const hozzaad = () => {
+            if (nev && helyszin && datum) {
+                fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nev: nev, helszin: helyszin,datum :datum })
+                }).then(() => { betolt(); setNev(""); setHelyszin(""); setDatum(""); });
+            }
+        };
+
+        const torol = (id) => {
+            fetch(API_URL, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ azon: id })
+            }).then(() => betolt());
+        };
+
+        return (
+            <div>
+                <h2>Versenyek (React CRUD + API)</h2>
+                <br/>
+                <div>
+                    <input type="text" placeholder="Pálya" value={nev} onChange={(e) => setNev(e.target.value)} />
+                    <input type="text" placeholder="Ország" value={helyszin} onChange={(e) => setHelyszin(e.target.value)} />
+                    <input type="date" value={datum} onChange={(e) => setDatum(e.target.value)}/>
+                    <button onClick={hozzaad}>Hozzáadás</button>
+                </div>
+                <ul>
+                    {gp.map(palya => (
+                        <li key={paly.azon}>
+                            <div style={{flex: 1}}><strong>{palya.nev}</strong> <span style={{color: '#aaa'}}>({palya.helyszin})</span> <span>({palya.datum})</span></div>
+                            <button onClick={() => torol(palya.azon)} style={{marginLeft: '10px', backgroundColor: '#e50914'}}>Törlés</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        );
+    }
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+</script>
 
     <footer>Gyurászik György Marcell - ZX4R0A | Patkós Máté - CS9R44</footer>
 </body>

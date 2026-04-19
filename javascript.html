@@ -22,7 +22,9 @@
         </nav>
     </header>
 	<div class="versenyek">
+		<h2>Versenyek (JS CRUD)</h2>
 		<form onsubmit="event.preventDefault();onFormSubmit();">
+			<br>
 			<div>
 				<label>Verseny neve</label><label class="ellenorzes hide" id="ellenorzes">Kötelező mező</label>
 				<input type="text" name="vnev" id="vnev">
@@ -32,11 +34,11 @@
 				<input type="text" name="hely" id="hely">
 			</div>
 			<div>
-				<label>Időpont</label>
+				<label>Dátum</label>
 				<input type="date" name="ido" id="ido" onfocus="this.showPicker()"  onmousedown="this.showPicker()" onkeydown="return false;">
 			</div>
-            <div  class="form-action-buttons">
-				<input type="submit" value="rögzítés">
+            <div>
+				<input class=gomb type="submit" value="rögzítés">
 			</div>
 </div>
 		</form>

@@ -78,7 +78,7 @@ main {
     flex: 1;
 }
 
-.versenyek {
+.versenyek,.tablazat {
     max-width: 1000px;
     margin: 20px auto;
     width: 90%;
@@ -86,26 +86,20 @@ main {
     padding: 25px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.tablazat {
-    max-width: 1000px;
-    margin: 10px auto;
-    width: 90%;
-    background: white;
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-form div {
     margin-bottom: 15px;
+}
+input {
+    margin-bottom: 15px;
+}
+input:last-of-type{
+    margin-bottom: 0px;
 }
 
 label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
+    margin-top: 5px;
     text-transform: uppercase;
     font-size: 0.85rem;
     color: #333;
@@ -127,7 +121,7 @@ input[type="date"]:focus {
     border-color: #e10600;
 }
 
-input[type="submit"] {
+input[type="submit"], .gomb{
     background-color: #15151e;
     color: white;
     padding: 12px 30px;
@@ -137,9 +131,11 @@ input[type="submit"] {
     font-weight: bold;
     text-transform: uppercase;
     transition: background 0.3s;
+    margin-top: 15px;
 }
 
-input[type="submit"]:hover {
+
+input[type="submit"]:hover, .gomb:hover {
     background-color: #e10600;
 }
 

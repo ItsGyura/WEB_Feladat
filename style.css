@@ -72,6 +72,8 @@ header a:hover {
     background-color: #e10600;
     border-color: #e10600;
     transform: skewX(-15deg);
+    color: #15151e;
+
 }
 
 main {
@@ -137,6 +139,7 @@ input[type="submit"], .gomb{
 
 input[type="submit"]:hover, .gomb:hover {
     background-color: #e10600;
+    color:#15151e;
 }
 
 table {

@@ -21,12 +21,68 @@
         </nav>
     </header>
 
-    <main>
-        <div class="Kezdo"></div>
-        <div class="Leírás">
-            <table></table>
-        </div>
-    </main>
+   <main id="root"></main>
+
+<script type="text/babel">
+    const { useState, useEffect } = React;
+    const API_URL = 'api.php';
+
+    function App() {
+        const [gp, setGp] = useState([]);
+        const [nev, setNev] = useState("");
+        const [datum, setDatum] = useState("");
+        const [helyszin, setHelyszin] = useState("");
+        const [hiba, setHiba] = useState("");
+
+        const betolt = () => {
+            axios.get(API_URL)
+                .then(res => { if (Array.isArray(res.data)) { setGp(res.data); } else { setGp([]); } })
+                .catch(err => setHiba("Nem sikerült kapcsolódni az adatbázishoz. Ellenőrizd a kapcsolat.php-t!"));
+        };
+
+        useEffect(() => { betolt(); }, []);
+
+        const hozzaad = () => {
+            if(nev && helyszin && datum) {
+                axios.post(API_URL, { nev: nev, helyszin: helyszin , datum: datum}).then(() => { betolt(); setNev(""); setHelyszin(""); setDatum(""); });
+            }
+        };
+
+        const torol = (id) => {
+            axios.delete(API_URL, { data: { azon: id } }).then(() => betolt());
+        };
+
+        return (
+            <div >
+                <h2>Gp (Szerver oldali - Axios)</h2>
+                <br/>
+                <div>
+                    <input type="text" placeholder="Nev" value={nev} onChange={(e) => setNev(e.target.value)} />
+                    <input type="text" placeholder="Helyszín" value={helyszin} onChange={(e) => setHelyszin(e.target.value)} />
+                    <input type="date" value={helyszin} onChange={(e) =>setDatum(e.target.value)}/>
+                    <button onClick={hozzaad}>Hozzáadás</button>
+                </div>
+                
+                {hiba && <p style={{color: '#e50914', marginTop: '20px', fontWeight: 'bold'}}>{hiba}</p>}
+                {gp.length === 0 && !hiba ? (
+                    <p style={{marginTop: '40px', color: '#aaa', fontStyle: 'italic'}}>Az adatbázis jelenleg üres. Kérlek, adj hozzá egy mozit fent!</p>
+                ):
+                 (
+                    <ul>
+                        {gp.map(palya => (
+                            <li key={palya.azon}>
+                                <div style={{flex: 1}}><strong>{palya.nev}</strong> <span style={{color: '#aaa'}}>({palya.helyszin})</span> <span>({palya.datum})</span></div>
+                            <button onClick={() => torol(palya.azon)} style={{marginLeft: '10px', backgroundColor: '#e50914'}}>Törlés</button>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+        );
+    }
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+</script>
 
     <footer>Gyurászik György Marcell - ZX4R0A | Patkós Máté - CS9R44</footer>
 </body>

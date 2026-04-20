@@ -21,12 +21,56 @@
         </nav>
     </header>
 
-    <main>
-        <div class="Kezdo"></div>
-        <div class="Leírás">
-            <table></table>
-        </div>
-    </main>
+    <main class="alap">
+    <h2>Gp-k(versenyhétvégék) (Szerver oldali - Fetch API)</h2>
+    <br>
+    <input type="text" id="nev" placeholder="Gp neve">
+    <input type="text" id="helyszin" placeholder="Helyszíne">
+    <input type="date" id="datum">
+    <button onclick="mentes()">Hozzáadás</button>
+    <ul id="lista"></ul>
+</main>
+
+<script>
+    const API_URL = 'api.php';
+
+    async function betoltes() {
+        const res = await fetch(API_URL);
+        const adatok = await res.json();
+        const lista = document.getElementById('lista');
+        lista.innerHTML = '';
+        adatok.forEach(palya => {
+            lista.innerHTML += `<li>
+                <div style={{flex: 1}}><strong>{palya.nev}</strong> <span style={{color: '#aaa'}}>({palya.helyszin})</span> <span>({palya.datum})</span></div>
+                <button onclick="torles(${palya.azon})" style="margin-left: 10px; background-color: #e50914;">Törlés</button>
+            </li>`;
+        });
+    }
+
+    async function mentes() {
+        const nev = document.getElementById('nev').value;
+        const helyszin = document.getElementById('cim').value;
+        const datum = document.getElementById('datum').value;
+
+        await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nev, helyszin, datum })
+        });
+        betoltes();
+    }
+
+    async function torles(id) {
+        await fetch(API_URL, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ azon: id })
+        });
+        betoltes();
+    }
+
+    betoltes();
+</script>
 
     <footer>Gyurászik György Marcell - ZX4R0A | Patkós Máté - CS9R44</footer>
 </body>

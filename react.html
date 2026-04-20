@@ -63,6 +63,7 @@
         };
 
         return (
+            <div>
             <div class="tablazat">
                 <h2>Versenyek (React CRUD + API)</h2>
                 <br/>
@@ -81,6 +82,24 @@
                 <div>
                     <button class="gomb" onClick={hozzaad} >Rögzítés</button>
                 </div>
+                
+            </div>
+
+            <div class="tablazat">
+        <table class="list" id="lista">
+			<thead>
+				<tr>
+					<th>Verseny neve</th>
+					<th>Helyszín</th>
+					<th>Időpont</th>
+					<th>Módosítás</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+            
+		</table>
                 <ul>
                     {gp.map(palya => (
                         <li key={paly.azon}>
@@ -89,6 +108,8 @@
                         </li>
                     ))}
                 </ul>
+
+                </div>
             </div>
         );
     }

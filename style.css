@@ -90,12 +90,7 @@ main {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     margin-bottom: 15px;
 }
-input {
-    margin-bottom: 15px;
-}
-input:last-of-type{
-    margin-bottom: 0px;
-}
+
 
 label {
     display: block;

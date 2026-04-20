@@ -33,6 +33,18 @@
     <input type="date"name="datum" id="datum" onfocus="this.showPicker()"  onmousedown="this.showPicker()" onkeydown="return false;">
     <button  class="gomb" onclick="mentes()">Rögzítés</button>
     </div>
+    <div class="tablazat">
+        <table class="list" id="lista">
+			<thead>
+				<tr>
+					<th>Verseny neve</th>
+					<th>Helyszín</th>
+					<th>Időpont</th>
+					<th>Módosítás</th>
+				</tr>
+            </thead>
+        </table>
+    </div>
     <ul id="lista"></ul>
 </main>
 
@@ -45,15 +57,7 @@
         const lista = document.getElementById('lista');
         lista.innerHTML = '';
         adatok.forEach(palya => {
-            lista.innerHTML += `<div class="tablazat">
-        <table class="list" id="lista">
-			<thead>
-				<tr>
-					<th>Verseny neve</th>
-					<th>Helyszín</th>
-					<th>Időpont</th>
-					<th>Módosítás</th>
-				</tr>
+            lista.innerHTML += `
                     {gp.map(palya => (
                         <tr key={palya.azon}>
                             <td>{palya.nev}</td>
@@ -61,10 +65,7 @@
                             <td>{palya.datum}</td>
                             <td><a onClick={() => torol(palya.azon)} id="torol">Törlés</a></td>
                         </tr>
-                    ))}
-                </thead>
-                </table>
-                </div>`;
+                    ))}`;
         });
     }
 

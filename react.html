@@ -49,7 +49,7 @@
                 fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nev: nev, helszin: helyszin,datum :datum })
+                    body: JSON.stringify({ nev: nev, helyszin: helyszin,datum :datum })
                 }).then(() => { betolt(); setNev(""); setHelyszin(""); setDatum(""); });
             }
         };

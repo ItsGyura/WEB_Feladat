@@ -23,15 +23,15 @@
 
     <main class="alap">
     <div class="tablazat">
-    <h2>Versenyhétvégék (Szerver oldali - Fetch API)</h2>
-    <br>
-    <label for="nev">Verseny neve</label>
-    <input type="text" name="nev" id="nev" >
-    <label for="helszin">Helyszín</label>
-    <input type="text" name="helyszin"id="helyszin">
-    <label for="datum">Dátum</label>
-    <input type="date"name="datum" id="datum" onfocus="this.showPicker()"  onmousedown="this.showPicker()" onkeydown="return false;">
-    <button  class="gomb" onclick="mentes()">Rögzítés</button>
+        <h2>Versenyhétvégék (Szerver oldali - Fetch API)</h2>
+        <br>
+        <label for="nev">Verseny neve</label>
+        <input type="text" name="nev" id="nev" value="">
+        <label for="helyszin">Helyszín</label>
+        <input type="text" name="helyszin"id="helyszin" value="">
+        <label for="datum">Dátum</label>
+        <input type="date"name="datum" id="datum" value="" onfocus="this.showPicker()"  onmousedown="this.showPicker()" onkeydown="return false;">
+        <button  class="gomb" onclick="mentes()">Rögzítés</button>
     </div>
     <div class="tablazat">
         <table class="list" id="lista">
@@ -49,6 +49,7 @@
         const res = await fetch(API_URL);
         const adatok = await res.json();
         const lista = document.getElementById('lista');
+       
         lista.innerHTML = '';
         lista.innerHTML+=`<thead>
 				<tr>
@@ -59,31 +60,49 @@
 				</tr>
             </thead>`;
         adatok.forEach(palya => {
-            lista.innerHTML += `
-                        <tr key=${palya.azon} >
-                            <td>${palya.nev} </td>
-                            <td>${palya.helyszin} </td>
-                            <td>${palya.datum} </td>
-                            <td> {<a onClick={() => torol(${palya.azon})} id="torol">Törlés</a>} </td>
-                        </tr>`;
-        });
+            let tr=document.createElement('tr');
+            tr.key=palya.azon;
+            let tdnev=document.createElement('td');
+            tdnev.innerText=palya.nev;
+            let tdhelyszin=document.createElement('td');
+            tdhelyszin.innerText=palya.helyszin;
+            let tddatum=document.createElement('td');
+            tddatum.innerText=palya.datum;
+            let tdtorles=document.createElement('td');
+            let torlesgomb=document.createElement('a');
+            torlesgomb.innerText='Törlés';
+            torlesgomb.addEventListener('click',function(){torles(palya.azon)});
+            torlesgomb.id="torol";
+            tdtorles.appendChild(torlesgomb);
+            tr.appendChild(tdnev);
+            tr.appendChild(tdhelyszin);
+            tr.appendChild(tddatum);
+            tr.appendChild(tdtorles);
+            lista.appendChild(tr);
+            
+        }
+    );
     }
 
     async function mentes() {
         const nev = document.getElementById('nev').value;
-        const helyszin = document.getElementById('cim').value;
+        const helyszin = document.getElementById('helyszin').value;
         const datum = document.getElementById('datum').value;
 
-        await fetch(API_URL, {
+         fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nev, helyszin, datum })
         });
+        document.getElementById('nev').value='';
+        document.getElementById('helyszin').value='';
+        document.getElementById('datum').value='';
+
         betoltes();
     }
 
     async function torles(id) {
-        await fetch(API_URL, {
+         fetch(API_URL, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ azon: id })
@@ -97,3 +116,11 @@
     <footer>Gyurászik György Marcell - ZX4R0A | Patkós Máté - CS9R44</footer>
 </body>
 </html>
+
+<!--lista.innerHTML += `
+                        <tr key=${palya.azon} >
+                            <td>${palya.nev} </td>
+                            <td>${palya.helyszin} </td>
+                            <td>${palya.datum} </td>
+                            <td> <a onClick={() => torol(palya.azon) id="torol">Törlés</a> </td>
+                        </tr>`;-->

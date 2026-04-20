@@ -59,10 +59,10 @@
         adatok.forEach(palya => {
             lista.innerHTML += `
                     {gp.map(palya => (
-                        <tr key={palya.azon}>
-                            <td>{palya.nev}</td>
-                            <td>{palya.helyszin}</td>
-                            <td>{palya.datum}</td>
+                        <tr key=${palya.azon}>
+                            <td>${palya.nev}</td>
+                            <td>${palya.helyszin}</td>
+                            <td>${palya.datum}</td>
                             <td><a onClick={() => torol(palya.azon)} id="torol">Törlés</a></td>
                         </tr>
                     ))}`;

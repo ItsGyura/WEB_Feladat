@@ -22,12 +22,17 @@
     </header>
 
     <main class="alap">
-    <h2>Gp-k(versenyhétvégék) (Szerver oldali - Fetch API)</h2>
+    <div class="tablazat">
+    <h2>Versenyhétvégék (Szerver oldali - Fetch API)</h2>
     <br>
-    <input type="text" id="nev" placeholder="Gp neve">
-    <input type="text" id="helyszin" placeholder="Helyszíne">
-    <input type="date" id="datum">
-    <button onclick="mentes()">Hozzáadás</button>
+    <label for="nev">Verseny neve</label>
+    <input type="text" name="nev" id="nev" >
+    <label for="helszin">Helyszín</label>
+    <input type="text" name="helyszin"id="helyszin">
+    <label for="datum">Dátum</label>
+    <input type="date"name="datum" id="datum" onfocus="this.showPicker()"  onmousedown="this.showPicker()" onkeydown="return false;">
+    <button  class="gomb" onclick="mentes()">Rögzítés</button>
+    </div>
     <ul id="lista"></ul>
 </main>
 

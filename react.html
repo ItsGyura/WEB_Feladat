@@ -94,21 +94,16 @@
 					<th>Időpont</th>
 					<th>Módosítás</th>
 				</tr>
-			</thead>
-			<tbody>
-
-			</tbody>
-            
-		</table>
-                <ul>
                     {gp.map(palya => (
-                        <li key={palya.azon}>
-                            <div style={{flex: 1}}><strong>{palya.nev}</strong> <span style={{color: '#aaa'}}>({palya.helyszin})</span> <span>({palya.datum})</span></div>
-                            <button onClick={() => torol(palya.azon)} style={{marginLeft: '10px', backgroundColor: '#e50914'}}>Törlés</button>
-                        </li>
+                        <tr key={palya.azon}>
+                            <td>{palya.nev}</td>
+                            <td>{palya.helyszin}</td>
+                            <td>{palya.datum}</td>
+                            <td><a onClick={() => torol(palya.azon)} id="torol">Törlés</a></td>
+                        </tr>
                     ))}
-                </ul>
-
+                </thead>
+                </table>
                 </div>
             </div>
         );

@@ -45,10 +45,26 @@
         const lista = document.getElementById('lista');
         lista.innerHTML = '';
         adatok.forEach(palya => {
-            lista.innerHTML += `<li>
-                <div style={{flex: 1}}><strong>{palya.nev}</strong> <span style={{color: '#aaa'}}>({palya.helyszin})</span> <span>({palya.datum})</span></div>
-                <button onclick="torles(${palya.azon})" style="margin-left: 10px; background-color: #e50914;">Törlés</button>
-            </li>`;
+            lista.innerHTML += `<div class="tablazat">
+        <table class="list" id="lista">
+			<thead>
+				<tr>
+					<th>Verseny neve</th>
+					<th>Helyszín</th>
+					<th>Időpont</th>
+					<th>Módosítás</th>
+				</tr>
+                    {gp.map(palya => (
+                        <tr key={palya.azon}>
+                            <td>{palya.nev}</td>
+                            <td>{palya.helyszin}</td>
+                            <td>{palya.datum}</td>
+                            <td><a onClick={() => torol(palya.azon)} id="torol">Törlés</a></td>
+                        </tr>
+                    ))}
+                </thead>
+                </table>
+                </div>`;
         });
     }
 

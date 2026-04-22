@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>WEB Beadandó</title>
+    <title>WEB Beadandó - OOJS Verseny</title>
 </head>
 <body>
     <header>
         <h1>Web programozás-1 Előadás Házi feladat</h1>
-
         <nav>
             <a href="index.html">Főoldal</a>
             <a href="javascript.html">CRUD</a>
@@ -22,12 +21,92 @@
     </header>
 
     <main>
-        <div class="Kezdo"></div>
-        <div class="Leírás">
-            <table></table>
-        </div>
+        <div class="versenyek">
+            <h2>F1 Célbaérési Szimuláció</h2>
+            <button class="gomb" onclick="ujversenyzo()">Új versenyző</button>
+            <button class="gomb" onclick="gyorsit()">GÁZ!</button>
+        
+
+        <div id="versenypalya" class="tablazat">
+            <div class="finish">FINISH</div>
+        </div></div>
     </main>
 
     <footer>Gyurászik György Marcell - ZX4R0A | Patkós Máté - CS9R44</footer>
+
+    <script>
+        class Jarmu {
+            constructor(tipus, szin) {
+                this.tipus = tipus;
+                this.szin = szin;
+                this.tavolsag = 0;
+            }
+
+            vazGeneralas() {
+                const div = document.createElement('div');
+                div.style.position = 'absolute';
+                div.style.left = '10px';
+                div.style.transition = 'left 0.2s linear';
+                return div;
+            }
+        }
+
+        class Versenyauto extends Jarmu {
+            constructor(tipus, szin, pilota) {
+                super(tipus, szin);
+                this.pilota = pilota;
+                this.celban = false;
+            }
+
+            megjelenit() {
+                const palya = document.getElementById('versenypalya');
+                const autoDiv = this.vazGeneralas();
+                autoDiv.id = 'f1-auto';
+                
+                autoDiv.innerHTML = `
+                    <div style="font-size: 50px; line-height: 1; transform: scaleX(-1);">🏎️</div>
+                    <div style="color: ${this.szin}; font-weight: bold; text-align: center; font-size: 14px; background: rgba(0,0,0,0.5); border-radius: 4px;">${this.pilota}</div>
+                `;
+
+                palya.appendChild(autoDiv);
+            }
+
+            mozgas() {
+                if (this.celban) return;
+
+                const elem = document.getElementById('f1-auto');
+                const palyaSzelesseg = document.getElementById('versenypalya').offsetWidth;
+                
+                this.tavolsag += 70;
+
+                if (this.tavolsag >= palyaSzelesseg - 120) {
+                    this.tavolsag = palyaSzelesseg - 120;
+                    this.celban = true;
+                    elem.style.filter = "drop-shadow(0 0 10px gold)";
+                }
+
+                elem.style.left = this.tavolsag + 'px';
+            }
+        }
+
+        let versenyzo = null;
+
+        function ujversenyzo() {
+            const regi = document.getElementById('f1-auto');
+            if (regi) regi.remove();
+
+            const nev = prompt("Pilóta neve:", "Norris");
+            if (nev) {
+                versenyzo = new Versenyauto('F1', '#3498db', nev);
+                versenyzo.megjelenit();
+            }
+        }
+
+        function gyorsit() {
+            if (versenyzo) {
+                versenyzo.mozgas();
+            }
+        }
+    </script>
 </body>
 </html>

@@ -21,6 +21,12 @@ switch($method) {
         }
         break;
 
+    case 'PUT':
+        $data= json_decode(file_get_contents("php://input"));
+        $stmt = $pdo->prepare("UPDATE F1 SET  nev=?,helyszin=?,datum=? where azon = ?");
+        $stmt->execute([$data->nev, $data->helyszin,$data->datum,$data->azon]);
+        echo json_encode(["message" =>"Sikeres módosítás"]);
+        break;
     case 'DELETE':
         $data = json_decode(file_get_contents("php://input"));
         if(!empty($data->azon)) {

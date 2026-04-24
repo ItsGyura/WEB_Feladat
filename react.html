@@ -35,7 +35,7 @@
         const [nev, setNev] = useState("");
         const [datum, setDatum] = useState("");
         const [helyszin, setHelyszin] = useState("");
-
+        const [mod,setMod]=useState(null);
         const betolt = () => {
             fetch(API_URL)
                 .then(res => res.json())
@@ -61,9 +61,28 @@
                 body: JSON.stringify({ azon: id })
             }).then(() => betolt());
         };
+        const modosit = (idx) =>{
+            setNev(gp[idx].nev);
+            setHelyszin(gp[idx].helyszin);
+            setDatum(gp[idx].datum);
+            setMod(gp[idx].azon);
+        }
+        const megse =() =>{
+             setNev("");
+            setHelyszin("");
+            setDatum("");
+            setMod(null);
+        }
+        const modositveg=() =>{
+            fetch(API_URL,{
+                method:'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nev: nev, helyszin: helyszin,datum :datum,azon:mod })
 
+            }).then(() => { betolt(); setNev(""); setHelyszin(""); setDatum(""); setMod(null); });
+        }
         return (
-            <div>
+            <>
             <div className="tablazat">
                 <h2>Versenyek (React CRUD + API)</h2>
                 <br/>
@@ -80,7 +99,14 @@
                     <input type="date" name="datum" value={datum} onChange={(e) => setDatum(e.target.value)} onFocus={(e) => e.target.showPicker()} onMouseDown={(e) => e.target.showPicker()} onKeyDown={(e) => e.preventDefault()} />
                 </div>
                 <div>
-                    <button className="gomb" onClick={hozzaad} >Rögzítés</button>
+                    { mod ? 
+                        <>
+                        <button className="gomb" onClick={modositveg} >Módosítás</button>
+                        <button className="gomb" onClick={megse}>Mégsem</button>
+                        </>
+                        :<button className="gomb" onClick={hozzaad} >Rögzítés</button>
+                    }
+                    
                 </div>
                 
             </div>
@@ -94,18 +120,20 @@
 					<th>Időpont</th>
 					<th>Módosítás</th>
 				</tr>
-                    {gp.map(palya => (
+                    {gp.map((palya,idx) => (
                         <tr key={palya.azon}>
                             <td>{palya.nev}</td>
                             <td>{palya.helyszin}</td>
                             <td>{palya.datum}</td>
-                            <td><a onClick={() => torol(palya.azon)} id="torol">Törlés</a></td>
+                            <td><a onClick={() => torol(palya.azon)} id="torol">Törlés</a>
+                                <a onClick={()=> modosit(idx)} id="modosit">Módosítás</a>
+                                </td>
                         </tr>
                     ))}
                 </thead>
                 </table>
                 </div>
-            </div>
+            </>
         );
     }
     const root = ReactDOM.createRoot(document.getElementById('root'));

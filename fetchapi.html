@@ -31,7 +31,7 @@
         <input type="text" name="helyszin"id="helyszin" value="">
         <label for="datum">Dátum</label>
         <input type="date"name="datum" id="datum" value="" onfocus="this.showPicker()"  onmousedown="this.showPicker()" onkeydown="return false;">
-        <button  class="gomb" onclick="mentes()">Rögzítés</button>
+        <div id="modositment"><button  class="gomb" onclick="mentes()">Rögzítés</button></div>
     </div>
     <div class="tablazat">
         <table class="list" id="lista">
@@ -44,7 +44,7 @@
 
 <script>
     const API_URL = 'api.php';
-
+    let tábla=[];
     async function betoltes() {
         const res = await fetch(API_URL);
         const adatok = await res.json();
@@ -59,7 +59,7 @@
 					<th>Módosítás</th>
 				</tr>
             </thead>`;
-        adatok.forEach(palya => {
+        adatok.forEach((palya,idx) => {
             let tr=document.createElement('tr');
             tr.key=palya.azon;
             let tdnev=document.createElement('td');
@@ -70,16 +70,21 @@
             tddatum.innerText=palya.datum;
             let tdtorles=document.createElement('td');
             let torlesgomb=document.createElement('a');
+            let modositgomb=document.createElement('a');
             torlesgomb.innerText='Törlés';
             torlesgomb.addEventListener('click',function(){torles(palya.azon)});
             torlesgomb.id="torol";
+            modositgomb.addEventListener('click',function(){modosit(idx)})
+            modositgomb.innerText='Módosít';
+            modositgomb.id="modosit";
             tdtorles.appendChild(torlesgomb);
+            tdtorles.appendChild(modositgomb);
             tr.appendChild(tdnev);
             tr.appendChild(tdhelyszin);
             tr.appendChild(tddatum);
             tr.appendChild(tdtorles);
             lista.appendChild(tr);
-            
+            tábla[idx]=palya;
         }
     );
     }
@@ -109,6 +114,39 @@
         });
         betoltes();
     }
+    const modosit = (idx) =>{
+           document.getElementById('nev').value=tábla[idx].nev;
+            document.getElementById('helyszin').value=tábla[idx].helyszin;
+             document.getElementById('datum').value=tábla[idx].datum;
+            
+            const gombok=document.getElementById('modositment');
+            gombok.innerHTML='<button className="gomb" id="meger" >Módosítás</button><button className="gomb" onclick="megse()">Mégsem</button>'
+            document.getElementById('meger').addEventListener('click',function (){modositveg( tábla[idx].azon)})
+        }
+    const megse =() =>{
+             document.getElementById('nev').value='';
+        document.getElementById('helyszin').value='';
+        document.getElementById('datum').value='';
+        const gombok=document.getElementById('modositment');
+        gombok.innerHTML='<button  class="gomb" onclick="mentes()">Rögzítés</button>';
+        }
+    const modositveg=async(mod) =>{
+
+        const nev = document.getElementById('nev').value;
+        const helyszin = document.getElementById('helyszin').value;
+        const datum = document.getElementById('datum').value;
+           await fetch(API_URL,{
+                method:'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nev: nev, helyszin: helyszin,datum :datum, azon:mod })
+
+            });
+            document.getElementById('nev').value='';
+        document.getElementById('helyszin').value='';
+        document.getElementById('datum').value='';
+        betoltes();
+        }
+
 
     betoltes();
 </script>

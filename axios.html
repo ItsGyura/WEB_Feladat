@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>WEB Beadandó</title>
 </head>
 <body>
@@ -33,6 +37,7 @@
         const [datum, setDatum] = useState("");
         const [helyszin, setHelyszin] = useState("");
         const [hiba, setHiba] = useState("");
+         const [mod,setMod]=useState(null);
 
         const betolt = () => {
             axios.get(API_URL)
@@ -52,8 +57,104 @@
             axios.delete(API_URL, { data: { azon: id } }).then(() => betolt());
         };
 
+         const modosit = (idx) =>{
+            setNev(gp[idx].nev);
+            setHelyszin(gp[idx].helyszin);
+            setDatum(gp[idx].datum);
+            setMod(gp[idx].azon);
+        }
+        const megse =() =>{
+             setNev("");
+            setHelyszin("");
+            setDatum("");
+            setMod(null);
+        }
+        const modositveg=() =>{
+            axios.put(API_URL,{ nev: nev, helyszin: helyszin,datum :datum,azon:mod }).then(() => { betolt(); setNev(""); setHelyszin(""); setDatum(""); setMod(null); });
+        }
+
+
+
+
+
         return (
-            <div >
+            <div>
+            <div className="tablazat">
+                <h2>Versenyek (React CRUD + API)</h2>
+                <br/>
+                <div>
+                    <label htmlFor="palya">Pálya</label>
+                    <input type="text" name="palya" value={nev} onChange={(e) => setNev(e.target.value)} />
+                </div>
+                <div>
+                    <label htmlFor="helyszin">Helyszín</label>
+                    <input type="text" name="helyszin" value={helyszin} onChange={(e) => setHelyszin(e.target.value)} />
+                </div>
+                <div>
+                    <label htmlFor="datum">Dátum</label>
+                    <input type="date" name="datum" value={datum} onChange={(e) => setDatum(e.target.value)} onFocus={(e) => e.target.showPicker()} onMouseDown={(e) => e.target.showPicker()} onKeyDown={(e) => e.preventDefault()} />
+                </div>
+                <div>
+                    { mod ? 
+                        <>
+                        <button className="gomb" onClick={modositveg} >Módosítás</button>
+                        <button className="gomb" onClick={megse}>Mégsem</button>
+                        </>
+                        :<button className="gomb" onClick={hozzaad} >Rögzítés</button>
+                    }
+                </div>
+                
+            </div>
+
+            <div className="tablazat">
+        <table className="list" id="lista">
+			<thead>
+				<tr>
+					<th>Verseny neve</th>
+					<th>Helyszín</th>
+					<th>Időpont</th>
+					<th>Módosítás</th>
+				</tr>
+                    {gp.map((palya,idx) => (
+                        <tr key={palya.azon}>
+                            <td>{palya.nev}</td>
+                            <td>{palya.helyszin}</td>
+                            <td>{palya.datum}</td>
+                            <td><a onClick={() => torol(palya.azon)} id="torol">Törlés</a>
+                             <a onClick={()=> modosit(idx)} id="modosit">Módosítás</a>
+                             </td>
+                        </tr>
+                    ))}
+                </thead>
+                </table>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
+        );
+    }
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+</script>
+
+    <footer>Gyurászik György Marcell - ZX4R0A | Patkós Máté - CS9R44</footer>
+</body>
+</html>
+
+<!-- <div className="tablazat" >
                 <h2>Gp (Szerver oldali - Axios)</h2>
                 <br/>
                 <div>
@@ -77,13 +178,4 @@
                         ))}
                     </ul>
                 )}
-            </div>
-        );
-    }
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
-</script>
-
-    <footer>Gyurászik György Marcell - ZX4R0A | Patkós Máté - CS9R44</footer>
-</body>
-</html>
+            </div>-->

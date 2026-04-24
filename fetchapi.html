@@ -71,14 +71,14 @@
             let tdtorles=document.createElement('td');
             let torlesgomb=document.createElement('a');
             let modositgomb=document.createElement('a');
+            modositgomb.addEventListener('click',function(){modosit(idx)})
+            modositgomb.innerText='Módosítás';
+            modositgomb.id="modosit";
             torlesgomb.innerText='Törlés';
             torlesgomb.addEventListener('click',function(){torles(palya.azon)});
             torlesgomb.id="torol";
-            modositgomb.addEventListener('click',function(){modosit(idx)})
-            modositgomb.innerText='Módosít';
-            modositgomb.id="modosit";
-            tdtorles.appendChild(torlesgomb);
             tdtorles.appendChild(modositgomb);
+            tdtorles.appendChild(torlesgomb);
             tr.appendChild(tdnev);
             tr.appendChild(tdhelyszin);
             tr.appendChild(tddatum);
@@ -120,7 +120,7 @@
              document.getElementById('datum').value=tábla[idx].datum;
             
             const gombok=document.getElementById('modositment');
-            gombok.innerHTML='<button className="gomb" id="meger" >Módosítás</button><button className="gomb" onclick="megse()">Mégsem</button>'
+            gombok.innerHTML='<button class="gomb">Módosítás</button>   <button class="gomb"onclick="megse()">Mégsem</button>'
             document.getElementById('meger').addEventListener('click',function (){modositveg( tábla[idx].azon)})
         }
     const megse =() =>{

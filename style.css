@@ -190,7 +190,6 @@ a#modosit:hover, a#torol:hover { color: #e10600; }
     position: relative;
     background: #222;
     overflow: hidden;
-    border-right: 25px dashed #fff;
     margin-top: 30px;
     display: flex;
     align-items: center;
@@ -219,16 +218,34 @@ a#modosit:hover, a#torol:hover { color: #e10600; }
     padding: 2px 5px;
 }
 
+.celvonal {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background-image: conic-gradient(#000 0.25turn, #fff 0.25turn 0.5turn, #000 0.5turn 0.75turn, #fff 0.75turn);
+    background-size: 20px 20px;
+    color: white;
+    writing-mode: vertical-rl;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+}
 .finish {
     position: absolute;
-    right: 0; top: 0; bottom: 0; width: 40px;
+    right: 0; top: 0; bottom: 0; width: 30px;
     background: rgba(255,255,255,0.1);
     color: white;
     writing-mode: vertical-rl;
     text-align: center;
     font-weight: bold;
+    margin-right: 30px;
+    padding-right: 4px;
 }
-
 .kartya-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

@@ -24,11 +24,12 @@
         <div class="versenyek">
             <h2>F1 Célbaérési Szimuláció</h2>
             <button class="gomb" onclick="ujversenyzo()">Új versenyző</button>
-            <button class="gomb" onclick="gyorsit()">GÁZ!</button>
+            <button  class="gomb hide" id="gaz" onclick="gyorsit()">GÁZ!</button>
         
 
         <div id="versenypalya" class="tablazat">
-            <div class="finish">FINISH</div>
+            <div class="celvonal"></div>
+            <div class="finish"> FINISH</div>
         </div></div>
     </main>
 
@@ -59,12 +60,13 @@
             }
 
             megjelenit() {
+                document.getElementById("gaz").classList.remove("hide");
                 const palya = document.getElementById('versenypalya');
                 const autoDiv = this.vazGeneralas();
                 autoDiv.id = 'f1-auto';
                 
                 autoDiv.innerHTML = `
-                    <div style="font-size: 50px; line-height: 1; transform: scaleX(-1);">🏎️</div>
+                    <div style="font-size: 50px; line-height: 1; transform: scaleX(-1); width: 60px;">🏎️</div>
                     <div style="color: ${this.szin}; font-weight: bold; text-align: center; font-size: 14px; background: rgba(0,0,0,0.5); border-radius: 4px;">${this.pilota}</div>
                 `;
 
@@ -72,17 +74,21 @@
             }
 
             mozgas() {
-                if (this.celban) return;
+                if (this.celban) return alert("Győzelem!");
 
                 const elem = document.getElementById('f1-auto');
-                const palyaSzelesseg = document.getElementById('versenypalya').offsetWidth;
+                const palya = document.getElementById('versenypalya');
+                const celvonal = document.querySelector('.celvonal');
                 
+                const autoSzelesseg = 60; 
+                const celvonalEleje = palya.offsetWidth - celvonal.offsetWidth;
+
                 this.tavolsag += 70;
 
-                if (this.tavolsag >= palyaSzelesseg - 120) {
-                    this.tavolsag = palyaSzelesseg - 120;
+                if (this.tavolsag + autoSzelesseg >= celvonalEleje) {
+                    this.tavolsag = celvonalEleje - autoSzelesseg;
                     this.celban = true;
-                    elem.style.filter = "drop-shadow(0 0 10px gold)";
+                    
                 }
 
                 elem.style.left = this.tavolsag + 'px';

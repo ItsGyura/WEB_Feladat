@@ -60,20 +60,12 @@
                             <h3>F1 Pontkalkulátor</h3>
                             <div className="szam-kijelzo">{getF1Points()}</div>
                             <div>
-                                <button 
-                                    className={`counter-btn ${!isSprint ? 'active' : ''}`} 
-                                    onClick={() => setIsSprint(false)}
-                                >FUTAM</button>
-                                <button 
-                                    className={`counter-btn ${isSprint ? 'active' : ''}`} 
-                                    onClick={() => setIsSprint(true)}
-                                >SPRINT</button>
+                                <button className="counter-btn" onClick={() => setIsSprint(false)}>FUTAM</button>
+                                <button className="counter-btn" onClick={() => setIsSprint(true)}>SPRINT</button>
                             </div>
                             <div style={{marginTop: '15px'}}>
                                 
-                                
                                 <label >Helyezés: </label>
-                                
                                 
                                 <input 
                                     type="number" 

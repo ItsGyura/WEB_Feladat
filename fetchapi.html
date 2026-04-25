@@ -120,7 +120,7 @@
              document.getElementById('datum').value=tábla[idx].datum;
             
             const gombok=document.getElementById('modositment');
-            gombok.innerHTML='<button class="gomb">Módosítás</button>   <button class="gomb"onclick="megse()">Mégsem</button>'
+            gombok.innerHTML='<button class="gomb" id="meger" >Módosítás</button>   <button class="gomb"onclick="megse()">Mégsem</button>'
             document.getElementById('meger').addEventListener('click',function (){modositveg( tábla[idx].azon)})
         }
     const megse =() =>{

@@ -87,7 +87,7 @@
                 <h2>Versenyek (React CRUD + API)</h2>
                 <br/>
                 <div>
-                    <label htmlFor="palya">Pálya</label>
+                    <label htmlFor="palya">Verseny neve</label>
                     <input type="text" name="palya" value={nev} onChange={(e) => setNev(e.target.value)}  required/>
                 </div>
                 <div>
@@ -101,8 +101,8 @@
                 <div>
                     { mod ? 
                         <>
-                        <button className="gomb" onClick={modositveg} >Módosítás</button>
-                        <button className="gomb" onClick={megse}>Mégsem</button>
+                        <button className="gomb" onClick={modositveg} >Módosítás</button>   <button className="gomb" onClick={megse}>Mégsem</button>
+                        
                         </>
                         :<button className="gomb" onClick={hozzaad} >Rögzítés</button>
                     }
@@ -125,9 +125,10 @@
                             <td>{palya.nev}</td>
                             <td>{palya.helyszin}</td>
                             <td>{palya.datum}</td>
-                            <td><a onClick={() => torol(palya.azon)} id="torol">Törlés</a>
+                            <td>
                                 <a onClick={()=> modosit(idx)} id="modosit">Módosítás</a>
-                                </td>
+                                <a onClick={() => torol(palya.azon)} id="torol">Törlés</a>
+                            </td>
                         </tr>
                     ))}
                 </thead>
